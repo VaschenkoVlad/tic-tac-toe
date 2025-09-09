@@ -1,5 +1,6 @@
 import { useState } from "react";
-import "./App.css"; // стиль для кнопок, якщо хочеш
+import "./style.css"; // імпортуємо свій файл стилів
+
 
 function Square({ value, onSquareClick }: { value: string | null; onSquareClick: () => void }) {
   return (
