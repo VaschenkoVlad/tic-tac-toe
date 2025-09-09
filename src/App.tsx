@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./style.css"; // імпортуємо свій файл стилів
+import "./style.css";
 
 
 function Square({ value, onSquareClick }: { value: string | null; onSquareClick: () => void }) {
@@ -22,8 +22,16 @@ export default function App() {
     setXIsNext(!xIsNext);
   };
 
-  const winner = calculateWinner(squares);
-  const status = winner ? `Переможець: ${winner}` : `Наступний гравець: ${xIsNext ? "X" : "O"}`;
+const winner = calculateWinner(squares);
+let status: string;
+
+if (winner) {
+  status = `Переможець: ${winner}`;
+} else if (squares.every(square => square !== null)) {
+  status = "Нічия!";
+} else {
+  status = `Наступний гравець: ${xIsNext ? "X" : "O"}`;
+}
 
   const renderSquare = (i: number) => (
     <Square value={squares[i]} onSquareClick={() => handleClick(i)} />
@@ -51,12 +59,11 @@ export default function App() {
   );
 }
 
-// Функція для визначення переможця
 function calculateWinner(squares: (string | null)[]) {
   const lines = [
-    [0, 1, 2], [3, 4, 5], [6, 7, 8], // рядки
-    [0, 3, 6], [1, 4, 7], [2, 5, 8], // стовпці
-    [0, 4, 8], [2, 4, 6],            // діагоналі
+    [0, 1, 2], [3, 4, 5], [6, 7, 8], 
+    [0, 3, 6], [1, 4, 7], [2, 5, 8], 
+    [0, 4, 8], [2, 4, 6],            
   ];
 
   for (let [a, b, c] of lines) {
